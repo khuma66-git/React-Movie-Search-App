@@ -24,25 +24,34 @@ function App() {
 
   /*--------------------Fetch Movies List------------------*/
   async function fetchMovies(searchText, page) {
-    let searchUrl = `http://www.omdbapi.com/?apikey=45e8a9e&s=${searchText}&page=${page}`;
-    let fetchdata = await fetch(searchUrl);
-    let searchResponse = await fetchdata.json();
-    //console.log(searchResponse)  an object
-    let moviesList = searchResponse.Search;
-    console.log(moviesList)
-    
-    if (searchResponse.Response ==="True") {
-      setlsitMovies(moviesList)
-      setnextExist(true);
+    setLoading(true)
+    setnotFound("")
+
+    try {
+      let searchUrl = `http://www.omdbapi.com/?apikey=45e8a9e&s=${searchText}&page=${page}`;
+      let fetchRes = await fetch(searchUrl);
+      let data = await fetchRes.json();
+      //console.log(data)  an object
+
+      if (data.Response !== "True") {
+        throw new Error(data.Error)
+      }
+      setlsitMovies(data.Search || [])// if movies exist then a moives array otherwise [] array
+      setnextExist(true)
       setnotFound("")
+      setPage(page)
+
+    } catch (error) {
+        setlsitMovies([])
+        setnextExist(false);
+      
+        setnotFound(error.message)
+
+    } finally {
       setLoading(false)
+
     }
-    else {
-      setnotFound("Search Result Not Found")
-      setlsitMovies([])
-      setnextExist(false);
-    }
-    setPage(page);
+
 
   }
   const onkeyEnter = (e) => {
@@ -79,8 +88,8 @@ function App() {
       <div className='header-wrapper'>
         <p className='header-title'>Apna Movies Search</p>
         <div className='search-box'>
-        <input type="text" value={searchText} onChange={MoviesSearchedText} placeholder='SearchMovies' onKeyDown={onkeyEnter}></input>
-        <button disabled={searchText.length < 1} onClick={(e) => { fetchMovies(searchText, Page) }}>Hit Search</button>
+          <input type="text" value={searchText} onChange={MoviesSearchedText} placeholder='SearchMovies' onKeyDown={onkeyEnter}></input>
+          <button disabled={searchText.length < 1} onClick={(e) => { fetchMovies(searchText, Page) }}>Hit Search</button>
         </div>
       </div>
 
@@ -89,7 +98,7 @@ function App() {
           {listMovies.map((items) => {
             return (
               <div key={items.imdbID} className="card border border-1 border-warning bg-black text-white pt-1" style={{ width: 270 }}>
-                <img src={items.Poster !=='N/A'?items.Poster:moviebg} className="card-img-top object-fit-cover" style={{ height: 380, width: "auto" }} alt={`the Poster ${items.Title}  not avalible`}></img>
+                <img src={items.Poster !== 'N/A' ? items.Poster : moviebg} className="card-img-top object-fit-cover" style={{ height: 380, width: "auto" }} alt={`the Poster ${items.Title}  not avalible`}></img>
                 <div className="card-body">
                   <h5 className="card-title fs-5 fw-medium
                     text-center">{items.Title}</h5>
@@ -111,14 +120,21 @@ function App() {
           })}
         </div>
         <span className='text-white fs-2 text-center'>{notFound}</span>
+         {loading && <div className='loading-overlay'>
+         <div className={loading ? 'd-flex align-content-center justify-content-center text-center' : 'd-none text-center'}>
+        <div class="spinner-border text-warning" style={{width:50 , height:50} }role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      </div>
+      }
       </section>
-       <div className='pagination-bar'>
+      <div className='pagination-bar'>
         <button disabled={Page <= 1} onClick={(e) => { prevPage(e, Page) }}>prev</button>
         <span className='page-number'>{Page}</span>
         <button disabled={!nextExist} onClick={(e) => { nextPage(e, Page) }}>next</button>
       </div>
      
-
     </>
   )
 }
