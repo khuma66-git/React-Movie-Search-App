@@ -8,3 +8,60 @@
   background: #000000c1;
   color: white;
 }
+.movie-wrapper {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: white;
+}
+
+/* Poster section */
+.movie-poster {
+  flex: 0 0 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.movie-poster img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* Details section */
+.movie-info {
+  flex: 1;
+  min-width: 280px;
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ffc107;
+}
+
+
+/* Ratings */
+.movie-ratings {
+  margin-top: 15px;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .movie-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .header-wrapper{
+    width: 100% !important;
+  }
+  .movie-info {
+    width: 100% !important;
+  }
+
+  .movie-poster {
+    width: 80% !important;
+  }
+}

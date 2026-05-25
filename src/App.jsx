@@ -93,15 +93,14 @@ function App() {
         </div>
       </div>
 
-      <section className='container  border rounded min-vw-90  bg-container  py-3 mt-5'>
-        <div className='row row-cols-lg-3 row-cols-md-4 row-cols-sm-6  row-gap-3 ms-1 column-gap-2  align-content-center'>
+      <section className='container   border rounded  bg-container mt-5'>
+        <div className='row g-4 text-center p-3 justify-content-center'>
           {listMovies.map((items) => {
-            return (
-              <div key={items.imdbID} className="card border border-1 border-warning bg-black text-white pt-1" style={{ width: 270 }}>
+            return (<div key={items.imdbID} className='col-auto'>
+              <div  className=" card border border-1 border-warning bg-black text-white pt-1" style={{ width: 270 }}>
                 <img src={items.Poster !== 'N/A' ? items.Poster : moviebg} className="card-img-top object-fit-cover" style={{ height: 380, width: "auto" }} alt={`the Poster ${items.Title}  not avalible`}></img>
                 <div className="card-body">
-                  <h5 className="card-title fs-5 fw-medium
-                    text-center">{items.Title}</h5>
+                  <h5 className="card-title fs-5 fw-medium text-center">{items.Title}</h5>
                 </div>
                 <div>
                   <ul className="list-group   list-group-flush border-2 border border-warning">
@@ -115,7 +114,7 @@ function App() {
                   </div>
                 </div>
               </div>
-
+</div>
             )
           })}
         </div>
