@@ -24,9 +24,9 @@ const MovieDetail = () => {
 
     return (
 
-        <div className='container bg-movie text-white'>
+        <div className='container'>
 
-            <div className="row g-0 overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
+            <div className="header-wrapper text-center">
                 <div className="col p-4 d-flex flex-column position-static">
                     <h3 className="mb-2">{movieDetail.Title}</h3>
                     <div className="mb-1 ">Released : {movieDetail.Released}</div>
@@ -34,12 +34,17 @@ const MovieDetail = () => {
 
                 </div>
             </div>
+                        
+                
             <div className='row bg-movie-dark g-0 border border-5 border-black rounded overflow-hidden'>
-                <div className='col-1'></div>
-                <div className="col-5 border border-2 border-warning my-5">
-                    <p className=" border-bottom border-2 border-warning my-2" >Genre : {movieDetail.Genre}</p>
-                    <p className="border-bottom border-2 border-warning " >RunTime : {movieDetail.Runtime}</p>
-                    <p className="border-bottom border-2 border-warning " >Type : {movieDetail.Type}</p>
+              <div className='col-1'></div>
+              <div className="col-5 ms-3 my-5">
+                    <img className=" shadow " src={movieDetail.Poster} alt={movieDetail.title}></img>
+                </div>
+                <div className="col-5  border border-2 text-center fs-6 text-white border-warning my-5">
+                    <p className=" border-bottom border-2 border-warning py-2 my-2" >Genre : {movieDetail.Genre}</p>
+                    <p className="border-bottom border-2 border-warning py-2" >RunTime : {movieDetail.Runtime}</p>
+                    <p className=" border-bottom border-2 border-warning py-2" >Type : {movieDetail.Type}</p>
                     <p className=" border-2 border-warning " >Actors : {movieDetail.Actors}</p>
                 <hr className='border border-2 border-warning'></hr>
                 <h4 className=''>Ratings</h4>
@@ -50,11 +55,7 @@ const MovieDetail = () => {
                     )
                 })}</div>
                 </div>
-            
-              <div className="col-5 my-5">
-                    <img className=" shadow " src={movieDetail.Poster} alt={movieDetail.title}></img>
-                </div>
-                <div className='col-1'></div>
+
         </div>
         </div>
 
