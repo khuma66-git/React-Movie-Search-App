@@ -1,3 +1,9 @@
-.bg-movie{
-   background-color: blue ;
+body{
+   background-image: url("./assets/movie-background.jpg");
+   background-repeat: none;
+   background-position: center;
+}
+
+.bg-container{
+  background: #11111163;
 }
